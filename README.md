@@ -10,6 +10,29 @@ This containerized vulnerable AI chatbot is designed for:
 - AI security testing and research
 - Demonstrating OWASP Top 10 for LLMs
 
+---
+
+## Deployment Options
+
+### ⚠️ IMPORTANT: Cloud Run Authentication Issues
+
+If you encounter **401 Unauthorized** errors when deploying to **Google Cloud Run**, this is caused by organization IAM policies that block public access. Cloud Run requires GCP identity tokens that Prisma AIRS cannot use.
+
+**✅ SOLUTION: Use GCP Compute Engine VM Deployment**
+
+For customers with Cloud Run restrictions, we provide a **complete VM deployment guide** that deploys the chatbot with **no authentication required**:
+
+📘 **[GCP VM Deployment Guide](GCP_VM_DEPLOYMENT.md)** - 3-minute deployment, no authentication needed
+
+**Key advantages:**
+- ✅ No authentication tokens required
+- ✅ Works immediately with Prisma AIRS
+- ✅ No token expiration issues
+- ✅ ~$7/month (e2-micro eligible for GCP free tier)
+- ✅ Public IP accessible from anywhere
+
+---
+
 ## Features
 
 ### Intentional Vulnerabilities
