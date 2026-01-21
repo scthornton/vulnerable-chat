@@ -237,7 +237,7 @@ def chat():
         # Response is returned directly without checking for sensitive data
 
         response = {
-            "response": bot_response,
+            "output": bot_response,
             "session_id": session_id,
             "timestamp": datetime.utcnow().isoformat(),
             "vulnerability_triggered": vulnerabilities_triggered if vulnerabilities_triggered else None,
