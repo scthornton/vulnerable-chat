@@ -1,0 +1,12 @@
+# Vulnerable AI Chatbot - Python Dependencies
+# FOR TESTING PURPOSES ONLY
+
+# Web framework
+Flask==3.0.0
+flask-cors==4.0.0
+
+# OpenAI API (optional - only needed if using real LLM)
+openai==1.10.0
+
+# Utilities
+python-dotenv==1.0.0

@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  vulnerable-chatbot:
+    build: .
+    container_name: vulnerable-ai-chatbot
+    ports:
+      - "${PORT:-5000}:5000"
+    environment:
+      - USE_OPENAI=${USE_OPENAI:-false}
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - MODEL_NAME=${MODEL_NAME:-gpt-3.5-turbo}
+      - PORT=5000
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+  # Optional: Add a simple web UI (uncomment if desired)
+  # web-ui:
+  #   image: nginx:alpine
+  #   container_name: chatbot-ui
+  #   ports:
+  #     - "8080:80"
+  #   volumes:
+  #     - ./web:/usr/share/nginx/html:ro
+  #   depends_on:
+  #     - vulnerable-chatbot
+
+networks:
+  default:
+    name: vulnerable-chatbot-network

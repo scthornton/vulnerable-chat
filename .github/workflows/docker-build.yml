@@ -1,0 +1,45 @@
+name: Docker Build and Test
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
+
+    - name: Build Docker image
+      run: |
+        docker-compose build
+
+    - name: Start application
+      run: |
+        docker-compose up -d
+        sleep 10
+
+    - name: Health check
+      run: |
+        curl -f http://localhost:5000/health || exit 1
+
+    - name: Test chat endpoint
+      run: |
+        curl -X POST http://localhost:5000/api/chat \
+          -H "Content-Type: application/json" \
+          -d '{"message": "test"}' || exit 1
+
+    - name: Run test suite
+      run: |
+        bash test-chatbot.sh
+
+    - name: Stop application
+      run: |
+        docker-compose down
