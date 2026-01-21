@@ -195,6 +195,9 @@ def chat():
         if not user_message:
             return jsonify({"error": "No message provided"}), 400
 
+        # Log incoming prompts for security testing analysis
+        print(f"[PROMPT] {session_id}: {user_message[:200]}")  # Log first 200 chars
+
         # VULNERABILITY 1: Direct prompt injection into system prompt
         # This concatenates user input directly into instructions
         system_prompt = f"""You are a helpful banking assistant for SecureBank.
